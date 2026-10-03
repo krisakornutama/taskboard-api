@@ -1,8 +1,43 @@
 ================================================================================
-MISSION STATUS :: COMPLETE - DELIVERABLE READY
+MISSION STATUS :: COMPLETE - DELIVERED TO GITHUB
 Project root: E:\ Documents\Default Project
-Completed: 2026-10-03
+Repository:   https://github.com/soverignos1-spec/taskboard-api
+Completed:    2026-10-03
 ================================================================================
+
+DELIVERY
+--------------------------------------------------------------------------------
+GitHub account  : soverignos1-spec
+Repository      : taskboard-api
+Visibility      : PRIVATE (intentional - owner's decision to make public later)
+Remote          : https://github.com/soverignos1-spec/taskboard-api.git
+Branch          : main, tracking origin/main
+Commit          : bcc6400 "Initial commit: TaskBoard API"
+Author          : Krisakorn Utama <admin@soverignnoriginshop.dpdns.org>
+Files on remote : 39 blobs, matching local `git ls-files` exactly
+Handover ZIP    : taskboard-api-v1.0.0.zip (77.3 KB, local only, git-ignored)
+
+LEAK CHECK PERFORMED AGAINST THE REMOTE
+--------------------------------------------------------------------------------
+Confirmed absent from GitHub: .env, node_modules/, dist/, *.sqlite, *.log
+Confirmed present: .env.example (template only, no real secret)
+
+DELIVERY-DAY OBSTACLES SOLVED
+--------------------------------------------------------------------------------
+1. No toolchain on the machine at all (node/npm/python/git/docker absent).
+   Installed Git 2.55.0, Node LTS v24.19.0, GitHub CLI 2.102.0 via winget.
+2. `gh auth login --web` device flow timed out twice before the owner
+   authorised. Third attempt succeeded as account soverignos1-spec.
+3. `git push` hung for 10 minutes: the credential helper was Git Credential
+   Manager, which tried to open an interactive prompt in a non-interactive
+   session. Fixed with `gh auth setup-git`; also set GIT_TERMINAL_PROMPT=0 and
+   GCM_INTERACTIVE=never so a credential problem fails fast instead of hanging.
+4. First real push failed with HTTP 408 (upload timeout) despite a tiny repo.
+   Fixed with http.postBuffer=524288000, http.lowSpeedLimit=0 and
+   http.lowSpeedTime=999999, then the push succeeded.
+5. PowerShell mangled `gh --jq` filters containing `==` and `?`, and its
+   case-insensitive variables let a demo seeder overwrite its own base URL.
+   Switched to parsing JSON natively.
 
 SPEC SELECTED (authorised via "PROCEED - you pick the spec")
 --------------------------------------------------------------------------------
@@ -88,11 +123,15 @@ DELIBERATELY OUT OF SCOPE (documented, not silently omitted)
 Email verification, password reset, MFA, distributed rate limiting, CSRF
 tokens, and a versioned migration runner.
 
-NOT DONE / REQUIRES THE USER
+STILL REQUIRES THE OWNER
 --------------------------------------------------------------------------------
-- No Git commit was made: `git config user.name` and `user.email` are empty on
-  this machine. Repository initialised but not committed, pending an identity.
-- No public download link: publishing needs the user's own GitHub/GitLab
-  credentials, which are not present on this machine. `gh` is not installed.
-- Source ZIP produced locally for handover.
+- Repository is PRIVATE. Making it public (for a portfolio) is one click in
+  Settings, but note that the owner's email is embedded in commit metadata and
+  becomes publicly scrapeable the moment it goes public. GitHub's noreply
+  address can be used instead if that matters.
+- The `gh` token carries the default scopes: gist, read:org, repo. The `gist`
+  scope is unnecessary for this work; revoke and re-authorise with
+  `--scopes repo` if the token is ever exposed.
+- No public "download" link beyond the GitHub repo, since a private repository
+  requires the owner's session to view.
 ================================================================================
