@@ -6,24 +6,64 @@ Replace `{{BUYER_NAME}}`, `{{PLATFORM}}` and `{{TIER}}` before sending.
 
 ## A. Titles (A/B test these)
 
+**Fiverr rules:** 15–80 characters · at least 4 words · **letters and numbers
+only** — no commas, colons or hyphens. Every option below has been length- and
+character-checked against those rules.
+
 **Fiverr** (80 char limit)
 
 ```
-I will build a secure REST API with JWT auth, database, and tests
+I will build a secure REST API with JWT auth and full tests
+```
+```
+I will build a production ready REST API with authentication and docs
 ```
 
-```
-I will develop a production ready REST API with authentication and docs
-```
-
-**Upwork** (70 char limit)
+**Upwork** (70 char limit — punctuation allowed here)
 
 ```
 Build a production ready REST API with JWT auth and automated tests
 ```
 
+### Category path
+
 ```
-Develop a documented REST API with auth, database and test suite
+Programming & Tech → Programming & Dev → API
+```
+
+Fallback if "API" is absent from the subcategory list: `Backend Development`.
+
+### Search tags (Fiverr allows 5, letters and numbers only)
+
+```
+api
+nodejs
+restapi
+jwt
+typescript
+```
+
+Better method: type a candidate word into the tag box and let Fiverr's own
+autocomplete show search volume, then pick the five with the highest numbers.
+
+### Positive keywords (no length limit)
+
+```
+rest api
+api development
+api integration
+backend developer
+api documentation
+unit testing
+software development
+node js
+express
+endpoint
+crud
+authentication
+authorization
+database design
+third party api
 ```
 
 ---
