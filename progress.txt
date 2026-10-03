@@ -1,0 +1,98 @@
+================================================================================
+MISSION STATUS :: COMPLETE - DELIVERABLE READY
+Project root: E:\ Documents\Default Project
+Completed: 2026-10-03
+================================================================================
+
+SPEC SELECTED (authorised via "PROCEED - you pick the spec")
+--------------------------------------------------------------------------------
+Profile      : Production-ready REST API with JWT authentication
+Source       : A recurring Upwork/Fiverr job archetype - "build me a REST API
+               with authentication" - normally $250-900.
+Why chosen   : It is objectively verifiable. The client can run `npm test` and
+               see green output, so acceptance needs no trust in the seller.
+               It also needs no API keys or paid services, which means it can
+               be built AND fully tested in this environment.
+
+Delivery
+--------------------------------------------------------------------------------
+Deliverable   TaskBoard API - projects & tasks REST service
+Stack         Node.js 24 / Express 5 / TypeScript 7 / SQLite (node:sqlite)
+Source files  20 (src + scripts)
+Tests         98 across 5 files
+Docs          README.md (client-facing), AGENTS.md (operations runbook)
+
+FEATURES DELIVERED
+--------------------------------------------------------------------------------
+- register / login / refresh / logout / logout-all / me
+- scrypt password hashing (node:crypto, no native module)
+- refresh-token rotation with reuse detection (revokes all sessions on replay)
+- role-based access control (member / admin), roles resolved from the DB
+- projects CRUD with pagination, filtering, search and whitelisted sorting
+- tasks CRUD with status/priority/assignee filters and due-date ordering
+- per-IP login rate limiting with Retry-After and X-RateLimit-* headers
+- Zod validation of body/params/query, unknown fields stripped
+- consistent JSON error envelope, no stack traces leaked
+- Helmet headers, 100kB body limit, x-powered-by disabled
+- /health endpoint that proves the database is reachable
+
+ENVIRONMENT WORK REQUIRED (the machine had no toolchain at all)
+--------------------------------------------------------------------------------
+Found missing : node, npm, python, git, gh, docker  (all genuinely absent,
+                verified against Program Files, LOCALAPPDATA and PATH)
+Available     : winget; npmjs.org and pypi.org reachable (HTTP 200)
+Installed     : Git 2.55.0, Node.js LTS v24.19.0 (npm 11.17.0)
+Note          : node 24 needed a PATH refresh in every shell invocation
+npm 11 quirk  : the allow-scripts gate blocked esbuild's postinstall; verified
+                vitest still launches, so no workaround was required
+PowerShell    : `npm` resolves to npm.ps1 and is blocked by the execution
+                policy; use `npm.cmd` - documented in AGENTS.md section 2
+
+BUGS FOUND AND FIXED DURING THE QA LOOP (all caught by running the tests)
+--------------------------------------------------------------------------------
+1. sort=name:asc returned 422 - the Zod enum rejected the ":asc" suffix before
+   resolveSort could whitelist it. Schema now validates only the shape.
+2. X-RateLimit-* headers missing on the first request of a window - they were
+   only set on the already-bucket-exists branch.
+3. sort=bogus:asc silently sorted ascending - an unrecognised column kept the
+   requested direction. It now falls back to (fallbackColumn, defaultDirection).
+4. Role changes had no effect - authorisation trusted the `role` claim in the
+   token. Roles are now read from the database on every request, which also makes
+   account deletion revoke access immediately.
+5. Test defect of my own: the "no cross-project leak" test posted both tasks to
+   the same project. Test corrected.
+6. Test expectation corrected: an injected ORDER BY string is now rejected at
+   validation (422), which is stronger than the silent fallback asserted before.
+
+Self-inflicted errors corrected during the build:
+- `require()` used inside ES modules three times (would have crashed at runtime);
+  replaced with static imports.
+- Casts of node:sqlite rows failed type-check; routed through `as unknown as`.
+- JSON body-parser errors would have surfaced as 500; now 400 / 413.
+
+VERIFICATION ACTUALLY EXECUTED
+--------------------------------------------------------------------------------
+npm run typecheck   -> clean, 0 errors
+npm test            -> 98 passed / 98, 5 files
+npm run build       -> compiled; dist/db/schema.sql emitted
+node dist/server.js -> started in NODE_ENV=production
+  GET  /health                      -> 200
+  POST /api/auth/register           -> 201
+  POST /api/projects                -> 201
+  POST /api/projects/1/tasks        -> 201
+  GET  /api/projects/1/tasks?...    -> 200
+  GET  /api/projects (no token)     -> 401 (correctly rejected)
+
+DELIBERATELY OUT OF SCOPE (documented, not silently omitted)
+--------------------------------------------------------------------------------
+Email verification, password reset, MFA, distributed rate limiting, CSRF
+tokens, and a versioned migration runner.
+
+NOT DONE / REQUIRES THE USER
+--------------------------------------------------------------------------------
+- No Git commit was made: `git config user.name` and `user.email` are empty on
+  this machine. Repository initialised but not committed, pending an identity.
+- No public download link: publishing needs the user's own GitHub/GitLab
+  credentials, which are not present on this machine. `gh` is not installed.
+- Source ZIP produced locally for handover.
+================================================================================

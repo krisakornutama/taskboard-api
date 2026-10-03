@@ -1,0 +1,46 @@
+{
+  "name": "taskboard-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready REST API for task & project management with JWT auth, role-based access control, validation, rate limiting and automated tests.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "rest-api",
+    "express",
+    "typescript",
+    "jwt",
+    "sqlite"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cors": "2.8.6",
+    "dotenv": "18.0.5",
+    "express": "5.2.1",
+    "helmet": "8.3.0",
+    "jsonwebtoken": "9.0.3",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.19",
+    "@types/express": "5.0.6",
+    "@types/jsonwebtoken": "9.0.10",
+    "@types/node": "26.6.4",
+    "@types/supertest": "7.2.1",
+    "supertest": "7.3.1",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.0.3"
+  }
+}

@@ -1,0 +1,14 @@
+# Normalise line endings to LF in the repository. Node.js tooling and CI
+# environments are consistent across platforms, so this prevents spurious
+# whole-file diffs when a contributor clones on Windows.
+* text=auto eol=lf
+
+# Batch files must keep CRLF to run correctly on Windows.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets are never line-ending converted.
+*.png binary
+*.jpg binary
+*.ico binary
+*.sqlite binary
