@@ -22,8 +22,10 @@ set and API reference, read `README.md`.
 | Database server | — | **No** | SQLite file, created automatically |
 | API keys / cloud accounts | — | **No** | The service is fully self-contained |
 
-There are **no native dependencies**. `npm install` performs no compilation, so it
-cannot fail on a customer's machine because of a missing build toolchain.
+There are **no compiler requirements**. `npm install` performs no compilation, so
+it cannot fail on a customer's machine because of a missing build toolchain. The
+only binary in the dependency tree is `esbuild`, pulled in transitively by Vitest
+as a prebuilt download.
 
 ### Confirm your Node version
 
@@ -43,7 +45,9 @@ If it prints anything below `v22.5.0`, install a current LTS from
 npm install
 ```
 
-This installs 8 runtime dependencies and 9 development dependencies.
+This installs 6 runtime dependencies and 9 development dependencies. None of the
+runtime dependencies has an `install`, `postinstall` or `node-gyp` script, so
+nothing is compiled during install.
 
 ### Windows / PowerShell note
 

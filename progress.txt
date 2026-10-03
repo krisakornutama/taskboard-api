@@ -123,7 +123,21 @@ DELIBERATELY OUT OF SCOPE (documented, not silently omitted)
 Email verification, password reset, MFA, distributed rate limiting, CSRF
 tokens, and a versioned migration runner.
 
-STILL REQUIRES THE OWNER
+SALES PACK (added 2026-10-03, after choosing the productized-service route)
+--------------------------------------------------------------------------------
+Files: sales/SALES-PACK.md, sales/gig-copy.md, sales/ORDER-INTAKE.md
+Contains: positioning, 3-tier pricing ($149/$399/$899) with rationale, A/B
+title variants, paste-ready listing copy, 6 reply templates, buyer intake
+form, pre-delivery checklist, scope boundaries.
+
+Every factual claim in the sales copy was checked against the repository before
+publishing. Two claims were wrong and were corrected:
+- "8 runtime dependencies" -> the actual count is 6
+- "zero native dependencies" -> esbuild ships a prebuilt binary via Vitest, so
+  the honest phrasing is "no compiler or build tools required"
+Numbers verified by re-running the suite: 98 tests across 5 files, 8.15s.
+
+NOT DONE - REQUIRES THE OWNER
 --------------------------------------------------------------------------------
 - Repository is PRIVATE. Making it public (for a portfolio) is one click in
   Settings, but note that the owner's email is embedded in commit metadata and
