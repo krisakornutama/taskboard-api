@@ -35,3 +35,5 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+# Order workspaces (runtime output, contain client details)
+orders/
