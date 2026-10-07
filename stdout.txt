@@ -1,0 +1,3 @@
+[server] TaskBoard API listening on http://0.0.0.0:3000
+[server] environment=production db=./data/taskboard.sqlite
+[server] health check: http://localhost:3000/health

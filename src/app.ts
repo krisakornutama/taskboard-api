@@ -8,6 +8,7 @@ import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { authRoutes } from './modules/auth/auth.routes.js';
 import { seedAdmin } from './modules/auth/auth.service.js';
 import { projectRoutes } from './modules/projects/project.routes.js';
+import { createOpenApiMiddleware, generateOpenApiSpec } from './docs/openapi.js';
 import type { Ctx } from './types.js';
 
 export interface AppOptions {
@@ -75,6 +76,11 @@ export function createApp(options: AppOptions): Express {
 
   app.use('/api/auth', authRoutes(ctx));
   app.use('/api', projectRoutes(ctx));
+
+  // Mount OpenAPI docs and Swagger UI
+  const spec = generateOpenApiSpec();
+  const openApiMiddleware = createOpenApiMiddleware({ spec });
+  openApiMiddleware.forEach((handler) => app.use(handler));
 
   app.use(notFoundHandler);
   app.use(errorHandler);
